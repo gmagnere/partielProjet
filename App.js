@@ -208,11 +208,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-        {SimpsonQuotes()}
-        {SimpsonByNumber()}
-        {SimpsonByName()}
+        {/*{SimpsonQuotes()}*/}
+        {/*{SimpsonByNumber()}*/}
+        {/*{SimpsonByName()}*/}
 
-
+        <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="Random" component={SimpsonQuotes} />
+                <Tab.Screen name="Random quotes by number" component={SimpsonByNumber} />
+                <Tab.Screen name="By Name" component={SimpsonByName} />
+            </Tab.Navigator>
+        </NavigationContainer>
     </View>
   );
 }
