@@ -28,23 +28,23 @@ export default function App() {
 
 
     const getQuote = () => {
-    fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
-        .then(response => response.json())
-        .then(data => {
-              console.log(data);
-              setQuote(data);
-            }
-        )
-  }
-  const getANumberOfQuote = () => {
-    fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?count=${number}`)
-        .then(response => response.json())
-        .then(data => {
-              console.log(data);
-            setQuoteList(data);
-            }
-        )
-  }
+        fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
+            .then(response => response.json())
+            .then(data => {
+                    console.log(data);
+                    setQuote(data);
+                }
+            )
+    }
+    const getANumberOfQuote = () => {
+        fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?count=${number}`)
+            .then(response => response.json())
+            .then(data => {
+                    console.log(data);
+                    setQuoteList(data);
+                }
+            )
+    }
 
     const getQuotesByName = () => {
         fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?count=15&character=${name}`)
@@ -69,7 +69,7 @@ export default function App() {
             <TextInput
                 style={styles.input}
                 onChangeText={setNumber}
-                value={number}
+                value={number.text}
                 placeholder='Entrer ici'
             />
         )
@@ -87,18 +87,18 @@ export default function App() {
             <TextInput
                 style={styles.input}
                 onChangeText={setName}
-                value={name}
+                value={name.text}
                 placeholder='Entrer ici'
             />
         )
     }
-  useEffect(() => {
+    useEffect(() => {
 
-    (async () => {
-      getQuote()
-    })();
+        (async () => {
+            getQuote()
+        })();
 
-  }, []);
+    }, []);
 
     const callApi = () => {
         getQuote()
@@ -160,25 +160,24 @@ export default function App() {
         </View>
     );
 
-    const SimpsonByName = () => {
+    function SimpsonByName (){
 
         return (
-        <View>
-            {inputAddQuoteByName()}
-            <Button
-                onPress={onPressQuoteByName}
-            >Charger des citations avec le nom d'un personnage</Button>
-            <FlatList
-                data={quotesByName}
-                renderItem={renderQuotesByName}
-                keyExtractor={item => item.dt}
-
-            />
-        </View>
+            <View>
+                {inputAddQuoteByName()}
+                <Button
+                    onPress={onPressQuoteByName}
+                >Charger des citations avec le nom d'un personnage</Button>
+                <FlatList
+                    data={quotesByName}
+                    renderItem={renderQuotesByName}
+                    keyExtractor={(item, index) => Math.random().toString()}
+                />
+            </View>
         )
     }
 
-    const SimpsonByNumber = () => {
+    function SimpsonByNumber () {
         return (
             <View>
                 {inputAddQuote()}
@@ -188,46 +187,45 @@ export default function App() {
                 <FlatList
                     data={quoteList}
                     renderItem={renderItemQuoteList}
-                    keyExtractor={item => item.dt}
-                />
+                    keyExtractor={(item, index) => Math.random().toString()}                />
             </View>
         )
     }
 
-    const SimpsonQuotes = () => {
+    function SimpsonQuotes (){
         return (
             <View>
                 <FlatList
                     data={quote}
                     renderItem={renderItem}
-                    keyExtractor={item => item.dt}
+                    keyExtractor={(item, index) => Math.random().toString()}
                 />
             </View>
         )
     }
 
-  return (
-    <View style={styles.container}>
-        {/*{SimpsonQuotes()}*/}
-        {/*{SimpsonByNumber()}*/}
-        {/*{SimpsonByName()}*/}
+    return (
+        <View style={styles.container}>
+            {/*{SimpsonQuotes()}*/}
+            {/*{SimpsonByNumber()}*/}
+            {/*{SimpsonByName()}*/}
 
-        <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Random" component={SimpsonQuotes} />
-                <Tab.Screen name="Random quotes by number" component={SimpsonByNumber} />
-                <Tab.Screen name="By Name" component={SimpsonByName} />
-            </Tab.Navigator>
-        </NavigationContainer>
-    </View>
-  );
+            <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen name="Random" component={SimpsonQuotes} />
+                    <Tab.Screen name="Random quotes by number" component={SimpsonByNumber} />
+                    <Tab.Screen name="By Name" component={SimpsonByName} />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
